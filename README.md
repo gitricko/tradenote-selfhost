@@ -52,6 +52,6 @@ If you need to start a new Codespace instance:
    make restore
    ```
    
-## 🕊️ In Memory of [paulgoh]
+## 🕊️ In Memory of Paul Goh
 
-This project is dedicated to the memory of [@paulgoh](https://github.com/paulgoh), my collegue, my friend and my brother. RIP 💙
+This project is dedicated to the memory of [@paulgoh](https://github.com/paulgoh), my collegue, my friend and my brother who was meant to be the first user of TradeNote-SelfHost. RIP 💙
