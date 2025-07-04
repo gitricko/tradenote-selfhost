@@ -9,10 +9,10 @@
 
 ### Prerequisites
 To run TradeNote-SelfHost, ensure you have:
-- A GitHub account to use Codespaces (Recommended)
 - Docker installed (for local setups on Linux/macOS)
+- OR a GitHub account to use Codespaces (No additional software requirements)
 
-### Running TradeNote in GitHub Codespaces
+### Running TradeNote in GitHub Codespaces (Recommended)
 
 1. **Fork the Repository**:
    - Fork [this repository](https://github.com/your-repo/tradenote-selfhost) to your GitHub account.
@@ -30,7 +30,7 @@ To run TradeNote-SelfHost, ensure you have:
 3. **Log In**:
    - Use the default credentials defined in the `Makefile` variable `TN_USER` (username and password are the same).
    - Alternatively, create a new user via the TradeNote interface.
-  
+
 ### Useful Commands
 
 Here are the primary `make` commands you need:
@@ -46,12 +46,40 @@ Here are the primary `make` commands you need:
 ### Restoring Data
 If you need to start a new Codespace instance:
 1. Fork the repository and launch a new Codespace (as described above).
-2. Copy your backup file (`tradenote_db_backup.tar.gz`) to the `./backup` directory.
+2. Copy your backup file (`tradenote_db_backup.tar.gz`) to the `./backup` directory or pull from your git repository.
 3. Run:
    ```bash
    make restore
    ```
    
+### Accessing Mongo Express
+TradeNote-SelfHost includes [Mongo Express](https://github.com/mongo-express/mongo-express), a web-based interface for viewing and managing your TradeNote database.
+
+1. **Start the Service**:
+   - Run `make start` to launch both TradeNote and Mongo Express as describe above.
+   - Once the services start, locate the Mongo Express URI in the **Ports** tab of Codespace. Click the forwarded address for port `8081` to access Mongo Express.
+   - ![Ports Tab](./docs/images/ports2.png)
+
+2. **Log In**:
+   - Use the default credentials defined in the `docker-compose.yml` file:
+     - **Username**: `tn`
+     - **Password**: `tn`
+
+3. **Usage**:
+   - Mongo Express allows you to browse, edit, or query your TradeNote database directly from the web interface.
+   - **Note**: Be cautious when modifying data, as changes are applied directly to the database.
+
+## Security Considerations for Running TradeNote in Codespaces
+
+Running TradeNote in GitHub Codespaces is generally secure, as access to the Codespace URI is restricted to the GitHub user who owns the repository. This inherently protects the default credentials for TradeNote and Mongo Express (defined in `docker-compose.yml`). However, to ensure your data remains secure, follow these best practices:
+
+- **Keep Your Repository Private**: Ensure your GitHub repository is set to private to prevent unauthorized access to your backup file (`./backup/tradenote_db_backup.tar.gz`) if you commit it to the repository.
+- **Limit Codespace Access**: Only share Codespace access with trusted collaborators via GitHub repository permissions.
+- **Secure Backup Storage**: If committing backups to GitHub, consider encrypting the backup file (`tradenote_db_backup.tar.gz`) before committing to add an extra layer of security.
+- **Monitor Codespace Usage**: Regularly check your GitHub Codespaces for active instances, as inactive instances are deleted after 30 days, potentially requiring data restoration.
+
+By following these steps, you can minimize security risks and safely use TradeNote in Codespaces.
+
 ## 🕊️ In Memory of Paul Goh
 
 This project is dedicated to the memory of [@paulgoh](https://github.com/paulgoh), my collegue, my friend and my brother who was meant to be the first user of TradeNote-SelfHost. RIP 💙
