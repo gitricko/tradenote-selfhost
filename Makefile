@@ -8,13 +8,13 @@ TN_USER=tn@tn
 .PHONY: backup restore clean
 
 start:
-	docker-compose up -d
+	docker compose up -d
 	while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
 	$(MAKE) create-user
-	docker-compose logs -f
+	docker compose logs -f
 
 stop:
-	docker-compose down
+	docker compose down
 
 reset:
 	$(MAKE) stop
@@ -35,7 +35,7 @@ docker-vol-clean:
 backup:
 	mkdir -p $(BACKUP_DIR)
 	@echo "Backing up volume: $(VOLUME_NAME) to $(BACKUP_DIR)/$(BACKUP_FILE)"
-	docker-compose down
+	docker compose down
 	@mkdir -p $(BACKUP_DIR)
 	docker run --rm \
 	  -v $(VOLUME_NAME):/volume \
@@ -46,19 +46,19 @@ backup:
 	git lfs install
 	git lfs track "*.tar.gz"
 	@echo "Backup complete!"
-	docker-compose up -d
+	docker compose up -d
 
 restore:
 	@test -f "$(BACKUP_DIR)/$(BACKUP_FILE)" || (echo "Error: $(BACKUP_DIR)/$(BACKUP_FILE) does not exist" && exit 1)
 	@echo "Restoring volume: $(VOLUME_NAME) from $(BACKUP_DIR)/$(BACKUP_FILE)"
-	docker-compose down
+	docker compose down
 	docker run --rm \
 	  -v $(VOLUME_NAME):/volume \
 	  -v $(shell pwd)/$(BACKUP_DIR):/backup \
 	  alpine \
 	  sh -c "cd /volume && tar xzf /backup/$(BACKUP_FILE)"
 	@echo "Restore complete!"
-	docker-compose up -d
+	docker compose up -d
 
 
 clean:
