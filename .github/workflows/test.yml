@@ -1,0 +1,53 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+  # schedule:
+  #   - cron: '55 23 * * 5' # Runs at 23:55 every Friday
+
+permissions:
+  contents: read
+
+jobs:
+  tn-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Test TN Server is starting
+        run: |
+          docker-compose up -d
+          while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
+          for i in {1..10}; do
+            if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+              echo "Server is up!"
+              exit 0
+            else
+              echo "Waiting for server... ($i/10)"
+              sleep 5
+            fi
+          done
+
+          if ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+            echo "Server is not up!"
+            exit 1
+          fi
+
+      - name: Test create user in TN
+        run: |
+          make create-user
+          make create-user && echo "✅ User created successfully" || { echo "❌ User creation failed"; exit 1; }
+
+      - name: Test backup
+        run: |
+          make backup && echo "✅ Backup successful" || { echo "❌ Backup failed"; exit 1; }
+
+      - name: Test restore
+        run: |
+          make restore && echo "✅ Restore successful" || { echo "❌ Restore failed"; exit 1; }
+
