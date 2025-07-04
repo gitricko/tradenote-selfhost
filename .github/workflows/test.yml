@@ -34,7 +34,11 @@ jobs:
 
       - name: Test TN Server is starting
         run: |
-          docker-compose up -d
+          ( make start ) & 
+          # Wait for the server to start
+          echo "Waiting for TradeNote server to start..."
+          
+          # Wait for the server to be up and running
           while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
           for i in {1..10}; do
             if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
