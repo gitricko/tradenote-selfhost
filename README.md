@@ -58,6 +58,7 @@ TradeNote-SelfHost includes [Mongo Express](https://github.com/mongo-express/mon
 1. **Start the Service**:
    - Run `make start` to launch both TradeNote and Mongo Express as describe above.
    - Once the services start, locate the Mongo Express URI in the **Ports** tab of Codespace. Click the forwarded address for port `8081` to access Mongo Express.
+   - ![Ports Tab](./docs/images/ports2.png)
 
 2. **Log In**:
    - Use the default credentials defined in the `docker-compose.yml` file:
