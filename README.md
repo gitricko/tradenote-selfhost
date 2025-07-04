@@ -1,5 +1,5 @@
 # TradeNote-SelfHost
-**TradeNote-SelfHost** is a user-friendly CLI tool that enables traders to host and use [TradeNote]([https://github.com/link-to-tradenote](https://github.com/Eleven-Trading/TradeNote), an open-source trading journal, without dedicated hardware by running it in GitHub Codespaces. The CLI simplifies data backup and restoration, and the `make` commands work on any Linux or macOS system with the required dependencies (e.g., Docker).
+**TradeNote-SelfHost** is a user-friendly CLI tool that enables traders to host and use [TradeNote](https://github.com/Eleven-Trading/TradeNote), an open-source trading journal, without dedicated hardware by running it in GitHub Codespaces. The CLI simplifies data backup and restoration, and the `make` commands work on any Linux or macOS system with the required dependencies (e.g., Docker).
 
 ## What's New
 
