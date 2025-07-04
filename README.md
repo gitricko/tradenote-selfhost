@@ -9,10 +9,10 @@
 
 ### Prerequisites
 To run TradeNote-SelfHost, ensure you have:
-- A GitHub account to use Codespaces (Recommended)
 - Docker installed (for local setups on Linux/macOS)
+- OR a GitHub account to use Codespaces (No additional software requirements)
 
-### Running TradeNote in GitHub Codespaces
+### Running TradeNote in GitHub Codespaces (Recommended)
 
 1. **Fork the Repository**:
    - Fork [this repository](https://github.com/your-repo/tradenote-selfhost) to your GitHub account.
@@ -46,7 +46,7 @@ Here are the primary `make` commands you need:
 ### Restoring Data
 If you need to start a new Codespace instance:
 1. Fork the repository and launch a new Codespace (as described above).
-2. Copy your backup file (`tradenote_db_backup.tar.gz`) to the `./backup` directory.
+2. Copy your backup file (`tradenote_db_backup.tar.gz`) to the `./backup` directory or pull from your git repository.
 3. Run:
    ```bash
    make restore
