@@ -1,42 +1,57 @@
 # TradeNote-SelfHost
-This user-friendly make CLI that enable any budding trader to host and use an Open Source Trading Journal called [TradeNote]() with no hardware need if you run it in Github's CodeSpace. It has CLI to help you backup and restore your data easily. The make directive should also work in any Linux/Mac machine (if your have all the prerequiste dependencies installed. eg: Docker)
+**TradeNote-SelfHost** is a user-friendly CLI tool that enables traders to host and use [TradeNote]([https://github.com/link-to-tradenote](https://github.com/Eleven-Trading/TradeNote), an open-source trading journal, without dedicated hardware by running it in GitHub Codespaces. The CLI simplifies data backup and restoration, and the `make` commands work on any Linux or macOS system with the required dependencies (e.g., Docker).
 
-# What's new
+## What's New
 
-Beta release
+- **Beta Release**: Initial release with core functionality for hosting TradeNote in GitHub Codespaces.
 
-# Use TradeNote in CodeSpace
+## Getting Started
 
-## Fork this github repository and launch CodeSpace
-![CodeSpace](./docs/images/codespace.png)
+### Prerequisites
+To run TradeNote-SelfHost, ensure you have:
+- A GitHub account to use Codespaces (Recommended)
+- Docker installed (for local setups on Linux/macOS)
 
+### Running TradeNote in GitHub Codespaces
 
-## Start TradeNote
-In the terminal console, enter this command to start TradeNote
-```ssh
-make start
-```
+1. **Fork the Repository**:
+   - Fork [this repository](https://github.com/your-repo/tradenote-selfhost) to your GitHub account.
+   - Open the repository in GitHub, click the green **Code** button, and select **Create Codespace** to launch a Codespace instance.
+   - ![Launch Codespace](./docs/images/codespace.png)
 
-The URI is listed in the PORTS tab. Click on the forwarded address for 8080
-![ports](./docs/images/ports.png)
+2. **Start TradeNote**:
+   - In the Codespace terminal, run:
+     ```bash
+     make start
+     ```
+   - Once the service starts, find the URI in the **Ports** tab of Codespace. Click the forwarded address for port `8080` to access TradeNote.
+   - ![Ports Tab](./docs/images/ports.png)
 
-Default user is listed in `Makefile` variable called `TN_USER`. Same password. Or you can create a new one
+3. **Log In**:
+   - Use the default credentials defined in the `Makefile` variable `TN_USER` (username and password are the same).
+   - Alternatively, create a new user via the TradeNote interface.
+  
+### Useful Commands
 
-## Other useful commands
-Usually, you only need to know 2 make-commands
+Here are the primary `make` commands you need:
 
-`make start`
-- to start the service
+- **`make start`**:
+  - Starts the TradeNote service.
+- **`make backup`**:
+  - Creates a backup of your data as a `.tar.gz` file, stored in `./backup/tradenote_db_backup.tar.gz`.
+  - **Tip**: Commit this file to your GitHub repository periodically to secure your backup.
+- **`make restore`**:
+  - Restores your data from the backup file in a new Codespace instance (e.g., after GitHub deletes an inactive Codespace after 30 days).
 
-`make backup`
-- to backup your data as a zip. It will be store in a file called `./backup/tradenote_db_backup.tar.gz`.
-- you should occasionally commit this into your github to store the backup data
-
-## Restoring data
-In the event you need to start a new codespace (codespace instance are delete by github after 1 month of inactive usage), use the following command to restore the instance in a new codespace
-
-`make restore`
-
+### Restoring Data
+If you need to start a new Codespace instance:
+1. Fork the repository and launch a new Codespace (as described above).
+2. Copy your backup file (`tradenote_db_backup.tar.gz`) to the `./backup` directory.
+3. Run:
+   ```bash
+   make restore
+   ```
+   
 ## 🕊️ In Memory of [paulgoh]
 
 This project is dedicated to the memory of [@paulgoh](https://github.com/paulgoh), my collegue, my friend and my brother. RIP 💙
