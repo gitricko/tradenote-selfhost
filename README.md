@@ -15,7 +15,7 @@ To run TradeNote-SelfHost, ensure you have:
 ### Running TradeNote in GitHub Codespaces (Recommended)
 
 1. **Fork the Repository**:
-   - Fork or copy all files from [this repository](https://github.com/gitricko/tradenote-selfhost/) to your GitHub account.
+   - Fork or copy all files from this repository to your GitHub account.
    - Open the repository in GitHub, click the green **Code** button, and select **Create Codespace** to launch a Codespace instance.
    - ![Launch Codespace](./docs/images/codespace.png)
 
@@ -71,7 +71,7 @@ TradeNote-SelfHost includes [Mongo Express](https://github.com/mongo-express/mon
 
 ## Security Considerations for Running TradeNote in Codespaces
 
-Running TradeNote in GitHub Codespaces is generally secure, as access to the Codespace URI is restricted to the GitHub user who owns the repository. This inherently protects the default credentials for TradeNote and Mongo Express (defined in `docker-compose.yml`). However, to ensure your data remains secure, follow these best practices:
+Running TradeNote in GitHub Codespaces is secure, as access to the Codespace URI is restricted to the GitHub user who owns the repository. This inherently protects the default credentials for TradeNote and Mongo Express (defined in `docker-compose.yml`). However, to ensure your data remains secure, follow these best practices:
 
 - **Keep Your Repository Private**: Ensure your GitHub repository is set to private to prevent unauthorized access to your backup file (`./backup/tradenote_db_backup.tar.gz`) if you commit it to the repository.
 - **Limit Codespace Access**: Only share Codespace access with trusted collaborators via GitHub repository permissions.
