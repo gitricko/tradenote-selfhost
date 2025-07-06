@@ -15,7 +15,7 @@ To run TradeNote-SelfHost, ensure you have:
 ### Running TradeNote in GitHub Codespaces (Recommended)
 
 1. **Fork the Repository**:
-   - Fork or copy files from [this repository](https://github.com/gitricko/tradenote-selfhost/) to your GitHub account.
+   - Fork or copy all files from [this repository](https://github.com/gitricko/tradenote-selfhost/) to your GitHub account.
    - Open the repository in GitHub, click the green **Code** button, and select **Create Codespace** to launch a Codespace instance.
    - ![Launch Codespace](./docs/images/codespace.png)
 
