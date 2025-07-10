@@ -84,6 +84,6 @@ Running TradeNote in GitHub Codespaces is secure, as access to the Codespace URI
 
 By following these steps, you can minimize security risks and safely use TradeNote in Codespaces.
 
-## 🕊️ In Memory of Paul Goh
+## 🕊️ [In Memory of Paul Goh](https://gofund.me/6789235f)
 
 This project is dedicated to the memory of [@paulgoh](https://github.com/paulgoh), my collegue, my friend and my brother who was meant to be the first user of TradeNote-SelfHost. RIP 💙
