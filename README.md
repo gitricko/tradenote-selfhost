@@ -15,8 +15,8 @@
 To run TradeNote-SelfHost, ensure you have:
 - a GitHub account to use Codespaces (No additional software requirements)
 - Linux/macOS:
-   - Docker installed with `docker compose` plugin. Use [brew-install-docker-compose](https://formulae.brew.sh/formula/docker-compose)
-   - GIT cli is installed with `git-lfs` plugin installed. Use [brew-install-git-lfs](https://formulae.brew.sh/formula/git-lfs)
+  - Docker installed with `docker compose` plugin. Use [brew-install-docker-compose](https://formulae.brew.sh/formula/docker-compose)
+  - GIT cli is installed with `git-lfs` plugin installed. Use [brew-install-git-lfs](https://formulae.brew.sh/formula/git-lfs)
 
 ### Running TradeNote in GitHub Codespaces (Recommended)
 
@@ -35,7 +35,7 @@ To run TradeNote-SelfHost, ensure you have:
 
 3. **Log In**:
    - Use the default credentials defined in the `Makefile` variable `TN_USER` (username and password are the same).
-      - Default is: `tn@tn`
+     - Default is: `tn@tn`
    - Alternatively, create a new user via the TradeNote interface.
 
 ### Useful Commands
