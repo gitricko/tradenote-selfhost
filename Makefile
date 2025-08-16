@@ -49,6 +49,9 @@ backup:
 	docker compose up -d
 
 restore:
+	# pull lfs files if necessary
+	git lfs install
+	git lfs ls-files | grep -qv "^\*" && git lfs pull
 	@test -f "$(BACKUP_DIR)/$(BACKUP_FILE)" || (echo "Error: $(BACKUP_DIR)/$(BACKUP_FILE) does not exist" && exit 1)
 	@echo "Restoring volume: $(VOLUME_NAME) from $(BACKUP_DIR)/$(BACKUP_FILE)"
 	docker compose down
