@@ -59,7 +59,7 @@ restore:
 	  -v $(VOLUME_NAME):/volume \
 	  -v $(shell pwd)/$(BACKUP_DIR):/backup \
 	  alpine \
-	  sh -c "cd /volume && tar xzf /backup/$(BACKUP_FILE)"
+	  sh -c "cd /volume && rm -rf * && tar xzf /backup/$(BACKUP_FILE)"
 	@echo "Restore complete!"
 	docker compose up -d
 
