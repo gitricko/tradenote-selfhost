@@ -7,14 +7,16 @@
 
 ## What's New
 
-- **Beta Release**: Initial release with core functionality for hosting TradeNote in GitHub Codespaces.
+- Documentation and code to support hosting on MacOS or any linux machine
 
 ## Getting Started
 
 ### Prerequisites
 To run TradeNote-SelfHost, ensure you have:
-- Docker installed (for local setups on Linux/macOS)
-- OR a GitHub account to use Codespaces (No additional software requirements)
+- a GitHub account to use Codespaces (No additional software requirements)
+- Linux/macOS:
+  - Docker installed with `docker compose` plugin. Use [brew-install-docker-compose](https://formulae.brew.sh/formula/docker-compose)
+  - GIT cli is installed with `git-lfs` plugin installed. Use [brew-install-git-lfs](https://formulae.brew.sh/formula/git-lfs)
 
 ### Running TradeNote in GitHub Codespaces (Recommended)
 
@@ -33,6 +35,7 @@ To run TradeNote-SelfHost, ensure you have:
 
 3. **Log In**:
    - Use the default credentials defined in the `Makefile` variable `TN_USER` (username and password are the same).
+     - Default is: `tn@tn`
    - Alternatively, create a new user via the TradeNote interface.
 
 ### Useful Commands
@@ -57,7 +60,7 @@ If you need to start a new Codespace instance:
    ```
    
 ### Accessing Mongo Express
-TradeNote-SelfHost includes [Mongo Express](https://github.com/mongo-express/mongo-express), a web-based interface for viewing and managing your TradeNote database.
+TradeNote-SelfHost includes [Mongo Express](https://github.com/mongo-express/mongo-express), a web-based interface for viewing and managing your TradeNote database (if needed)
 
 1. **Start the Service**:
    - Run `make start` to launch both TradeNote and Mongo Express as describe above.
