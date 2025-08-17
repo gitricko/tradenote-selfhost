@@ -8,6 +8,8 @@
 ## What's New
 
 - Documentation and code to support hosting on MacOS or any linux machine
+- Instructions on how to set forked repo to private
+- Create a new make directive `update-src-deps` to allow update from this repository after forked repo is private
 
 ## Getting Started
 
@@ -86,6 +88,14 @@ Running TradeNote in GitHub Codespaces is secure, as access to the Codespace URI
 - **Monitor Codespace Usage**: Regularly check your GitHub Codespaces for active instances, as inactive instances are deleted after 30 days, potentially requiring data restoration.
 
 By following these steps, you can minimize security risks and safely use TradeNote in Codespaces.
+
+## Setting your Forked tradenote-selfhost Repository to Private
+Forked repositories on GitHub are public by default, which can pose a security risk if you commit sensitive files like your TradeNote database backup (`tradenote_db_backup.tar.gz`). To protect your data, convert your forked repository to private by making it standalone first. Follow these steps:
+
+- **Navigate to Repository Settings**: Go to your forked `tradenote-selfhost` repository on GitHub and click on the **Settings** tab at the top.
+- **Leave the Fork Network**: Scroll down to the **Danger Zone** section at the bottom of the General settings page. Click the **Leave fork network** button to unlink your repository from the original fork network, transforming it into a standalone repository. Confirm the action when prompted.
+- **Change Visibility**: Once unlinked, the **Change visibility** button in the Danger Zone will become available. Click it, select **Change to private**, and confirm the change. Your repository is now private and inaccessible to the public.
+
 
 ## 🕊️ [In Memory of Paul Goh](https://gofund.me/6789235f)
 
