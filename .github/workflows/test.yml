@@ -68,3 +68,21 @@ jobs:
         run: |
           make restore && echo "✅ Restore successful" || { echo "❌ Restore failed"; exit 1; }
 
+      - name: Test update src deps
+        run: |
+          # Create a file that is not support to be deleted
+          touch ./file-should-be-here
+
+          # Delete a file that should be restored/update
+          rm -f ./LICENSE
+
+          ls -lah
+          make update-src-deps
+
+          # Check if LICENSE is restore
+          test -f ./LICENSE && echo "✅ LICENSE file is restored successfully" || { echo "❌ LICENSE file is missing"; exit 1; }
+
+          # Check if file-should-be-here is still there (file add should not be removed)
+          test -f ./file-should-be-here && echo "✅ file-should-be-here file is still here, not deleted" || { echo "❌ file-should-be-here file is missing"; exit 1; }
+
+
