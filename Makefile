@@ -1,5 +1,9 @@
 # Makefile
 
+EXTERNAL_DIR := /tmp/vendor/tradenote-selfhost$(shell bash -c 'echo $$RANDOM')
+EXTERNAL_REPO := https://github.com/gitricko/tradenote-selfhost
+EXTERNAL_MK := $(EXTERNAL_DIR)/Makefile
+
 VOLUME_NAME=tradenote_db
 BACKUP_FILE=tradenote_db_backup.tar.gz
 BACKUP_DIR=./backup
@@ -68,3 +72,13 @@ clean:
 	@echo "Removing backup file..."
 	rm -f $(BACKUP_DIR)/$(BACKUP_FILE)
 	@echo "Done."
+
+# Use this command to update if you make your git-repo private
+update-src-deps:
+	if [ ! -f "$(EXTERNAL_MK)" ]; then \
+		echo "Cloning external dependency..."; \
+		mkdir -p $(dir $(EXTERNAL_MK)); \
+		git clone --depth 1 --branch main $(EXTERNAL_REPO) $(EXTERNAL_DIR); \
+	fi; \
+
+	rsync -av --exclude='.*' "$(EXTERNAL_DIR)/" "./"
