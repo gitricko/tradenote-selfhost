@@ -80,9 +80,9 @@ jobs:
           make update-src-deps
 
           # Check if LICENSE is restore
-          test -f ./LICENSE || (echo "Missing LICENSE"; exit 1)
+          test -f ./LICENSE && echo "✅ LICENSE file is restored successfully" || { echo "❌ LICENSE file is missing"; exit 1; }
 
           # Check if file-should-be-here is still there (file add should not be removed)
-          test -f ./file-should-be-here || (echo "Missing file-should-be-here"; exit 1)
+          test -f ./file-should-be-here && echo "✅ file-should-be-here file is still here, not deleted" || { echo "❌ file-should-be-here file is missing"; exit 1; }
 
 
