@@ -7,6 +7,7 @@ services:
       - tradenote_db:/data/db
     ports:
       - 27017:27017
+    command: ["mongod", "--wiredTigerCacheSizeGB", "0.25"]   # Limit WiredTiger cache to 256 MB (0.25 GB)
     environment:
       MONGO_INITDB_ROOT_USERNAME: tn
       MONGO_INITDB_ROOT_PASSWORD: tn
