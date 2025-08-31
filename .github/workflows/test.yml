@@ -92,7 +92,7 @@ jobs:
       - name: Test restore
         run: |
           make docker-image-clean
-          ( make start ) &
+          ( make start 2>/dev/null ) &
           # Wait for the server to start before restore
           echo "Waiting for TradeNote server to start..."
           
@@ -108,7 +108,7 @@ jobs:
             fi
           done
 
-          ( make restore ) 2>/dev/null
+          ( make restore 2>/dev/null) &
           # Wait for the server to start after restore
           echo "Waiting for TradeNote server to start..."
           
@@ -117,7 +117,7 @@ jobs:
           for i in {1..10}; do
             if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
               echo "Server is up!"
-              exit 0
+              break
             else
               echo "Waiting for server... ($i/10)"
               sleep 5
