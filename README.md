@@ -95,7 +95,15 @@ Forked repositories on GitHub are public by default, which can pose a security r
 - **Navigate to Repository Settings**: Go to your forked `tradenote-selfhost` repository on GitHub and click on the **Settings** tab at the top.
 - **Leave the Fork Network**: Scroll down to the **Danger Zone** section at the bottom of the General settings page. Click the **Leave fork network** button to unlink your repository from the original fork network, transforming it into a standalone repository. Confirm the action when prompted.
 - **Change Visibility**: Once unlinked, the **Change visibility** button in the Danger Zone will become available. Click it, select **Change to private**, and confirm the change. Your repository is now private and inaccessible to the public.
+### Updating Your Private Repository with latest changes from this repository
+After converting your forked repository to private, you may still want to incorporate updates from the original tradenote-selfhost repository. To do this, use the make command:
 
+```bash
+make update-src-deps
+```
+- Preserves Your Files: Any additional files or folders you created will remain untouched.
+- Overwrites Matching Files: If files exist both in your repository and the upstream source, they will be overwritten with the latest version.
+- Best Practice: Before committing changes to your private repository, run a git diff to review modifications and ensure nothing important is unintentionally overwritten.
 
 ## 🕊️ [In Memory of Paul Goh](https://gofund.me/6789235f)
 
