@@ -65,7 +65,7 @@ jobs:
           # Create extra users for restore test later
           curl 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"$(TN_USER)123","password":"$(TN_USER)123","email":"$(TN_USER)123","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
 
-          make backup
+          ( make backup ) 2>/dev/null
 
           # Wait for the server to start after backup
           echo "Waiting for TradeNote server to start..."
@@ -108,7 +108,7 @@ jobs:
             fi
           done
 
-          make restore
+          ( make restore ) 2>/dev/null
           # Wait for the server to start after restore
           echo "Waiting for TradeNote server to start..."
           
