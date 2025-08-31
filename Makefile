@@ -27,7 +27,7 @@ reset:
 	
 
 create-user:
-	curl 'http://localhost:8080/parse/users' -H 'content-type: text/json' \
+	curl -s 'http://localhost:8080/parse/users' -H 'content-type: text/json' \
   		--data-raw '{"username":"$(TN_USER)","password":"$(TN_USER)","email":"$(TN_USER)","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
 
 docker-image-clean:
