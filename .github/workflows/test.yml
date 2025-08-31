@@ -42,8 +42,8 @@ jobs:
           while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
           for i in {1..10}; do
             if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
-              echo "Server is up!"
-              exit 0
+              echo "✅ Server is up!"
+              break
             else
               echo "Waiting for server... ($i/10)"
               sleep 5
@@ -51,22 +51,79 @@ jobs:
           done
 
           if ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
-            echo "Server is not up!"
+            echo "❌ Server is not up!"
             exit 1
           fi
 
-      - name: Test create user in TN
+      - name: Create additional user is created in TN
         run: |
-          make create-user
-          make create-user && echo "✅ User created successfully" || { echo "❌ User creation failed"; exit 1; }
+          # Create extra users for restore test later
+          curl -s 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"test@tn","password":"test@tn","email":"test@tn","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}' | jq -e '.sessionToken'
+          [ $? -eq 0 ] && echo "✅ User created successfully" || { echo "❌ User creation failed"; exit 1; }
 
       - name: Test backup
         run: |
-          make backup && echo "✅ Backup successful" || { echo "❌ Backup failed"; exit 1; }
+          ( make backup ) 2>/dev/null
+
+          # Wait for the server to start after backup
+          echo "Waiting for TradeNote server to start..."
+          
+          # Wait for the server to be up and running
+          while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
+          for i in {1..10}; do
+            if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+              echo "Server is up!"
+              break
+            else
+              echo "Waiting for server... ($i/10)"
+              sleep 5
+            fi
+          done
+
+          if ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+            echo "❌ Backup failed; Server is not up!"
+            exit 1
+          else
+            echo "✅ Backup successful"
+          fi
 
       - name: Test restore
         run: |
-          make restore && echo "✅ Restore successful" || { echo "❌ Restore failed"; exit 1; }
+          make docker-image-clean
+          ( make start 2>/dev/null ) &
+          # Wait for the server to start before restore
+          echo "Reset system; Waiting for TradeNote server to start..."
+          
+          # Wait for the server to be up and running
+          while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
+          for i in {1..10}; do
+            if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+              echo "Server is up!"
+              break
+            else
+              echo "Waiting for server... ($i/10)"
+              sleep 5
+            fi
+          done
+
+          ( make restore 2>/dev/null ) &
+          # Wait for the server to start after restore
+          echo "Restored DB; Waiting for TradeNote server to start..."
+          
+          # Wait for the server to be up and running
+          while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
+          for i in {1..10}; do
+            if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+              echo "Server is up!"
+              break
+            else
+              echo "Waiting for server... ($i/10)"
+              sleep 5
+            fi
+          done
+
+          curl -s 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"test@tn","password":"test@tn","email":"test@tn","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}' | jq -e '.error'
+          [ $? -eq 0 ] && echo "✅ User exists after restore" || { echo "❌ User does not exist after restore"; exit 1; }
 
       - name: Test update src deps
         run: |
