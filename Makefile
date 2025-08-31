@@ -8,7 +8,6 @@ VOLUME_NAME=tradenote_db
 BACKUP_FILE=tradenote_db_backup.tar.gz
 BACKUP_DIR=./backup
 TN_USER=tn@tn
-TN_USER_TEST=test@tn
 
 .PHONY: backup restore clean
 

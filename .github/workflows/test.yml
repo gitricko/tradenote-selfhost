@@ -58,7 +58,7 @@ jobs:
       - name: Create additional user is created in TN
         run: |
           # Create extra users for restore test later
-          curl -s 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"$(TN_USER_TEST)","password":"$(TN_USER_TEST)","email":"$(TN_USER_TEST)","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
+          curl -s 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"test@tn","password":"test@tn","email":"test@tn","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
           echo "curl result is $?"
           
           [ $? -eq 0 ] && echo "✅ User created successfully" || { echo "❌ User creation failed"; exit 1; }
@@ -124,7 +124,7 @@ jobs:
             fi
           done
 
-          curl 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"ABC$(TN_USER)","password":"ABC$(TN_USER)","email":"ABC$(TN_USER)","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
+          curl -s 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"test@tn","password":"test@tn","email":"test@tn","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
           [ $? -ne 0 ] && echo "✅ User exists after restore" || { echo "❌ User does not exist after restore"; exit 1; }
 
       - name: Test update src deps
