@@ -31,7 +31,7 @@ create-user:
   		--data-raw '{"username":"$(TN_USER)","password":"$(TN_USER)","email":"$(TN_USER)","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
 
 docker-image-clean:
-	docker rm -f $$(docker ps -a)
+	docker rm -f $$(docker ps -qa)
 
 docker-vol-clean:
 	docker volume rm -f $$(docker volume ls -q)
