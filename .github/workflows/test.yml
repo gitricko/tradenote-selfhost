@@ -62,17 +62,68 @@ jobs:
 
       - name: Test backup
         run: |
-          make backup && echo "✅ Backup successful" || { echo "❌ Backup failed"; exit 1; }
+          # Create extra users for restore test later
+          curl 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"$(TN_USER)123","password":"$(TN_USER)123","email":"$(TN_USER)123","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
+
+          make backup
+
+          # Wait for the server to start after backup
+          echo "Waiting for TradeNote server to start..."
+          
+          # Wait for the server to be up and running
+          while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
+          for i in {1..10}; do
+            if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+              echo "Server is up!"
+              exit 0
+            else
+              echo "Waiting for server... ($i/10)"
+              sleep 5
+            fi
+          done
+
+          if ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+            echo "Server is not up! ❌ Backup failed"
+            exit 1
+          else
+            echo "✅ Backup successful"
+          fi
 
       - name: Test restore
         run: |
-          # First, create new user
-          curl 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"$(TN_USER)123","password":"$(TN_USER)123","email":"$(TN_USER)123","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
-          # Then backup, restore
-          make backup
           make docker-image-clean
+          ( make start ) &
+          # Wait for the server to start before restore
+          echo "Waiting for TradeNote server to start..."
+          
+          # Wait for the server to be up and running
+          while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
+          for i in {1..10}; do
+            if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+              echo "Server is up!"
+              exit 0
+            else
+              echo "Waiting for server... ($i/10)"
+              sleep 5
+            fi
+          done
+
           make restore
-          sleep 20 # wait for 20 seconds to let the server start
+          # Wait for the server to start after restore
+          echo "Waiting for TradeNote server to start..."
+          
+          # Wait for the server to be up and running
+          while ! curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; do echo; sleep 5; done;
+          for i in {1..10}; do
+            if curl -s --head http://localhost:8080 | head -n 1 | grep -q "200 OK"; then
+              echo "Server is up!"
+              exit 0
+            else
+              echo "Waiting for server... ($i/10)"
+              sleep 5
+            fi
+          done
+
           curl 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"$(TN_USER)123","password":"$(TN_USER)123","email":"$(TN_USER)123","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
           echo $? && echo "✅ Restore successful" || { echo "❌ Restore failed"; exit 1; }
 
