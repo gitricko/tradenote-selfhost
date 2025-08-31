@@ -66,7 +66,15 @@ jobs:
 
       - name: Test restore
         run: |
-          make restore && echo "✅ Restore successful" || { echo "❌ Restore failed"; exit 1; }
+          # First, create new user
+          curl 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"$(TN_USER)123","password":"$(TN_USER)123","email":"$(TN_USER)123","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
+          # Then backup, restore
+          make backup
+          make docker-image-clean
+          make restore
+          sleep 20 # wait for 20 seconds to let the server start
+          curl 'http://localhost:8080/parse/users' -H 'content-type: text/json' --data-raw '{"username":"$(TN_USER)123","password":"$(TN_USER)123","email":"$(TN_USER)123","timeZone":"America/New_York","_ApplicationId":"123456","_ClientVersion":"js5.3.0"}'
+          echo $? && echo "✅ Restore successful" || { echo "❌ Restore failed"; exit 1; }
 
       - name: Test update src deps
         run: |
