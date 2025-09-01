@@ -17,6 +17,10 @@ start:
 	$(MAKE) create-user
 	docker compose logs -f
 
+start-mongo-express:
+	docker compose --profile mongo-express up -d
+	docker compose logs -f
+
 stop:
 	docker compose down
 
