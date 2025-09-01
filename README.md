@@ -65,7 +65,7 @@ If you need to start a new Codespace instance:
 TradeNote-SelfHost includes [Mongo Express](https://github.com/mongo-express/mongo-express), a web-based interface for viewing and managing your TradeNote database (if needed)
 
 1. **Start the Service**:
-   - Run `make start` to launch both TradeNote and Mongo Express as describe above.
+   - Run `make start-mongo-express` to launch Mongo Express service as it is not started by default.
    - Once the services start, locate the Mongo Express URI in the **Ports** tab of Codespace. Click the forwarded address for port `8081` to access Mongo Express.
    - ![Ports Tab](./docs/images/ports2.png)
 

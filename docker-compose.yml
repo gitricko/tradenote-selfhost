@@ -3,6 +3,7 @@ services:
   mongo:
     image: mongo:latest
     container_name: tradenote_db
+    restart: always
     volumes:
       - tradenote_db:/data/db
     ports:
@@ -18,6 +19,7 @@ services:
   tradenote:
     image: eleventrading/tradenote
     container_name: tradenote_app
+    restart: always
     ports:
       - 8080:8080
     environment:
@@ -34,6 +36,7 @@ services:
   mongoexpress:
     image: mongo-express
     container_name: mongo-express_app
+    profiles: ["mongo-express"]
     ports:
       - 8081:8081
     environment:
