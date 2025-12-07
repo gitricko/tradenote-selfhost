@@ -55,7 +55,7 @@ backup:
 	
 	git lfs install
 	git lfs track "*.tar.gz"
-	@echo "Backup complete!"
+	@echo "Backup complete! Size of file: $$(du -h backup/$(BACKUP_FILE) | awk '{print $$1}')"
 	docker compose up -d
 
 restore:
