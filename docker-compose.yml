@@ -17,7 +17,7 @@ services:
       - tradenote_net
 
   tradenote:
-    image: ghcr.io/gitricko/tradenote:5e4297974462954c8c6934a7f771e9543d8f5b46
+    image: ghcr.io/gitricko/tradenote:a76c20a5cb5814d129f35829c670f2a2f6b1e17d
     container_name: tradenote_app
     restart: always
     ports:
